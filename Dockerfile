@@ -1,10 +1,17 @@
-FROM python:3
+FROM python:3.10-slim
 
-WORKDIR /usr/src/app
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
 
-COPY requirements.txt ./
+# Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
+
+# Install core dependencies.
+RUN apt-get update && apt-get install -y libpq-dev build-essential
+
+# Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
 
 CMD [ "python", "./webshell-sniper.py" ]
