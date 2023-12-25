@@ -1,17 +1,14 @@
-FROM python:3.10-slim
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
 
-# Allow statements and log messages to immediately appear in the Knative logs
-ENV PYTHONUNBUFFERED True
+# Set the working directory to /app
+WORKDIR /app
 
-# Copy local code to the container image.
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Install core dependencies.
-RUN apt-get update && apt-get install -y libpq-dev build-essential
-
-# Install production dependencies.
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "python", "./webshell-sniper.py" ]
+# Run validate_config.py when the container launches
+CMD ["python", "webshell-sniper.py"]
