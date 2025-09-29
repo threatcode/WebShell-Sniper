@@ -1,3 +1,8 @@
+# 🚨 Depricated Warning (Experimental Project)
+
+> **This project has been depricated and this governancy decied mainatinance not charged - all packages or their equivalents can be found there instead**
+
+
 # Webshell-Sniper
 A webshell manager via terminal
 
